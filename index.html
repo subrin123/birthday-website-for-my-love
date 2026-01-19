@@ -35,6 +35,10 @@ body{
   color:#5a2a42;
   overflow-x:hidden;
 }
+section { 
+  position: relative; 
+  z-index: 5; 
+}
 
 section{
   min-height:100vh;
@@ -183,6 +187,59 @@ textarea{
   font-size:1.4rem;
   font-style:italic;
   color:#7a3e2d;
+}
+/* FLOATING BALLOONS */
+.balloon {
+  position: fixed;
+  bottom: -80px;
+  font-size: 40px;
+  animation: floatUp linear forwards;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+.corner-cute {
+  position: fixed;
+  width: 100px;
+  opacity: 0.6;
+  pointer-events: none; /* so they don't block clicks */
+  z-index: 0;
+}
+
+/* corner placement */
+.corner-cute.left { bottom: 20px; left: 15px; }
+.corner-cute.right { bottom: 20px; right: 15px; }
+.corner-cute.top-left { top: 20px; left: 20px; }
+.corner-cute.top-right { top: 20px; right: 20px; }
+
+/* wave animation */
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(3deg); }
+}
+
+/* blink animation */
+@keyframes blink {
+  0%, 20%, 40%, 60%, 80%, 100% { opacity: 0.6; }
+  10%, 30%, 50%, 70%, 90% { opacity: 0.3; }
+}
+
+/* apply wave & blink */
+.wave-blink {
+  animation: wave 4s ease-in-out infinite, blink 5s ease-in-out infinite;
 }
 
 </style>
@@ -335,6 +392,28 @@ window.addEventListener("DOMContentLoaded", () => {
   window.openGift = openGift;
   window.openFinalLetter = openFinalLetter;
 });
+// 🎈 Balloon generator
+function releaseBalloon() {
+  const balloon = document.createElement("div");
+  balloon.className = "balloon";
+
+  const balloons = ["🎈", "💖", "💖", "🎈", "✨"];
+  balloon.innerText = balloons[Math.floor(Math.random() * balloons.length)];
+
+  balloon.style.left = Math.random() * 100 + "vw";
+  balloon.style.animationDuration = 4 + Math.random() * 4 + "s";
+  balloon.style.fontSize = 30 + Math.random() * 25 + "px";
+
+  document.body.appendChild(balloon);
+
+  setTimeout(() => {
+    balloon.remove();
+  }, 8000);
+}
+
+// Release balloons continuously
+setInterval(releaseBalloon, 1200)
+
 </script>
 
 
