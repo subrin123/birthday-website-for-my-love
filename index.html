@@ -33,8 +33,9 @@
 body{
   background:linear-gradient(120deg,#ffe6f0,#fff7e6);
   color:#5a2a42;
-  overflow:hidden;
+  overflow-x:hidden;
 }
+
 section{
   min-height:100vh;
   display:flex;
@@ -90,7 +91,12 @@ textarea{
 }
 
 /* CAKE */
-#cakeContainer{position:relative;width:220px;height:220px}
+#cakeContainer{
+  position:relative;
+  width:200px;
+  height:200px;
+  margin-top:10px;
+}
 
 .cake{
   width:200px;
@@ -210,12 +216,13 @@ textarea{
 
 <!-- SCENE 4 -->
 <section id="scene4" class="hidden">
-  <h2 style="position:relative;z-index:10">Cut the Cake, Pookie 🎂</h2>
-  <p style="margin-bottom:20px;position:relative;z-index:10">
-    Drag across the cake
-  </p>
+  <div style="margin-bottom:40px; z-index:10; position:relative;">
+  <h2>Cut the Cake, Pookie 🎂</h2>
+  <p style="margin-top:10px;">Drag across the cake</p>
+</div>
 
-  <div id="cakeContainer">
+<div id="cakeContainer">
+
     <canvas id="cutCanvas" width="220" height="220"></canvas>
     <div class="cake" id="cake">
       <div class="cake-slice left"><div class="icing"></div></div>
