@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="module">
+  import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+  window.emailjs = emailjs; // make it globally accessible
+</script>
+
+
+<meta charset="UTF-8">
+<title>Happy Birthday My Baby Boy 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<!-- START: EmailJS integration -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("YOUR_PUBLIC_KEY"); // <-- Replace this with your actual EmailJS public key
+  })();
+</script>
+<!-- END: EmailJS integration -->
+
+<style>
+#finalLetter{
+  max-height:80vh;      /* limits height to screen */
+  overflow-y:auto;      /* enables scrolling INSIDE the letter */
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{
+  background:linear-gradient(120deg,#ffe6f0,#fff7e6);
+  color:#5a2a42;
+  overflow:hidden;
+}
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+}
+.hidden{display:none}
+h1,h2{font-family:'Playfair Display',serif}
+
+.btn{
+  background:#ff5fa2;
+  color:white;
+  border:none;
+  padding:14px 32px;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:25px;
+  box-shadow:0 10px 25px rgba(255,95,162,.4);
+}
+
+.gift-box,.envelope{
+  font-size:90px;
+  cursor:pointer;
+  animation:bounce 1.5s infinite;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-18px)}
+}
+
+.balloon{
+  position:absolute;
+  bottom:-100px;
+  font-size:40px;
+  animation:floatUp 5s linear forwards;
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+textarea{
+  width:280px;
+  height:130px;
+  border-radius:16px;
+  border:none;
+  padding:15px;
+  margin-top:20px;
+  outline:none;
+}
+
+/* CAKE */
+#cakeContainer{position:relative;width:220px;height:220px}
+
+.cake{
+  width:200px;
+  height:160px;
+  background:#8b4a2b;
+  border-radius:0 0 20px 20px;
+  margin:0 auto;
+  position:relative;
+}
+
+.cake-slice{
+  position:absolute;
+  width:100px;
+  height:160px;
+  background:#8b4a2b;
+  top:0;
+  transition:transform 1s ease;
+}
+.cake-slice.left{left:0}
+.cake-slice.right{left:100px}
+
+.cake.split .left{transform:translateX(-60px) rotate(-8deg)}
+.cake.split .right{transform:translateX(60px) rotate(8deg)}
+
+.icing{
+  position:absolute;
+  top:0;width:100%;height:45px;
+  background:#ffd6e8;
+  border-radius:20px 20px 0 0;
+}
+
+.candle{
+  width:10px;height:40px;
+  background:#ff4d4d;
+  position:absolute;
+  top:-40px;left:50%;
+  transform:translateX(-50%);
+  border-radius:5px;
+}
+.flame{
+  width:14px;height:14px;
+  background:orange;
+  border-radius:50%;
+  position:absolute;
+  top:-15px;left:50%;
+  transform:translateX(-50%);
+  animation:flicker .2s infinite alternate;
+}
+@keyframes flicker{
+  from{transform:translateX(-50%) scale(1)}
+  to{transform:translateX(-50%) scale(1.1)}
+}
+
+#cutCanvas{
+  position:absolute;top:0;left:0;
+  z-index:5;
+  touch-action:none;
+}
+
+/* FINAL LETTER */
+#scene5{
+  overflow-y:auto;
+  max-height:100vh;
+}
+#finalLetter{
+  background:#f4e1c1;
+  padding:35px;
+  max-width:650px;
+  border-radius:10px;
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  font-family:'Playfair Display',serif;
+  line-height:1.7;
+  animation:letterFall 2.5s ease forwards;
+}
+@keyframes letterFall{
+  from{opacity:0;transform:translateY(-120px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.from-picchi{
+  display:block;
+  margin-top:40px;
+  text-align:right;
+  font-family:'Playfair Display', serif;
+  font-size:1.4rem;
+  font-style:italic;
+  color:#7a3e2d;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SCENE 1 -->
+<section id="scene1">
+  <h1>Happy Birthday My Baby Boy 🎉</h1>
+  <p style="margin-top:18px;max-width:600px;line-height:1.7">
+    Before the surprises… before the cake…<br>
+    you are deeply loved 🤍
+  </p>
+  <button class="btn" onclick="nextScene(2)">Continue 💖</button>
+</section>
+
+<!-- SCENE 2 -->
+<section id="scene2" class="hidden">
+  <div class="gift-box" onclick="openGift()">🎁</div>
+  <p id="giftText" class="hidden">Make a wish before the cake 💫</p>
+  <button id="wishBtn" class="btn hidden" onclick="nextScene(3)">Make My Wish ✨</button>
+</section>
+
+<!-- SCENE 3 -->
+<section id="scene3" class="hidden">
+  <h2>Your Wish 🤍</h2>
+  <textarea placeholder="Write your wish here… 🤍"></textarea>
+  <button class="btn" onclick="nextScene(4)">Done 🤍</button>
+</section>
+
+<!-- SCENE 4 -->
+<section id="scene4" class="hidden">
+  <h2 style="position:relative;z-index:10">Cut the Cake, Pookie 🎂</h2>
+  <p style="margin-bottom:20px;position:relative;z-index:10">
+    Drag across the cake
+  </p>
+
+  <div id="cakeContainer">
+    <canvas id="cutCanvas" width="220" height="220"></canvas>
+    <div class="cake" id="cake">
+      <div class="cake-slice left"><div class="icing"></div></div>
+      <div class="cake-slice right"><div class="icing"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+  </div>
+
+  <div id="finalEnvelope" class="hidden">
+    <p style="margin-top:30px">Tap the envelope 💌</p>
+    <div class="envelope" onclick="openFinalLetter()">💌</div>
+  </div>
+</section>
+
+<!-- SCENE 5 -->
+<section id="scene5" class="hidden">
+  <div id="finalLetter">
+<p>My dear baby boy,</p>
+<p>Happiest 28th birthday!!</p>Ajk apnar birthday and ami onek happy eta vebe je ajker dine apni jonmaisilen. Apni amr life ey na ashle ami jantam na love kemon hoy. Hoyto amr love life valo hoynai but still ami true love to khuje paisi apnar karone. Ami apnar jonno shob kisu korte pare happy karon at least amr love er jonno effort to dite parsi eta vebei ami happy thakte chai. Ami hoyto dur vaga but its ok I accept it je shobar kopale love hoyna🙁. But ami asha kori je jar jonno love bachay rakhsen takey niye future life ey onk shukhe thaken😊. <p>Ajk 17 tarikh,</p> apnar birthday er deri ase but ei letter ami ajk likhtesi. Ei pura like website ta ami banano start korsi 10 tarikh theke only apnar birthday er jonno. Janina hoyto apnar posondo hobe na but ami apnake kono gift dite partesi na tai etai banaisi shokh kore apnar jonno. Sorry je birthday te apnake kisu dite parlam na☹️. Ami janina ami ei letter likhte jaya kn kantesi ekn😂. Ami janina amr afsos shesh hoite kotodin lagbe. But pls apni nijeke kono blame diyen na amr pain er jonno. Apnar kono dosh nai apni just nijeke happy rakhsen just nijeke save korsen and etai kora uchit. AMi nijer icchay shob kisu korsi so ajk amr kannar jonno ami dayi babe. Apni janen ami still expect kori je next jonome ami apnake pabo next jonome amr shob dreams puron korbo apnar sathe je dreams gula ei jonome venge gese😀. Bolen bext jonome to ar amr protidin kanna korte hobe na afsos niye bachte hobe na taina? Ami asha kori apnar life ey amr cheye onek better kaoke paben je apnake amr cheyeo onek beshi love korbe and happy rakhbe. Sorry je ami apnake happy rakhte parlam na shudhu apnar pain er reason hoilam apnar perar reason hoilam babe😭. Janen amr apnake niye onek dreams silo jani apnar hoyto porte birokto lagbe but still ami share korte chai nijer kharap laga kisuta komanor jonno. Amr dreams silo je apni amr bf hoben karon apnar moddhe ami jemon chaisilam shob ase. AMr dream silo je apni amake propose korben. Dreams silo je ami amr bf ke niye baki shob couples der moto ghurbo teenage life ta enjoy korbo then finally biye korbo. EKn obossho amr aro beshi kanna ashtese eishob vaiba karon ami shob somoy amr ei dreams gula imagine kortam. Ami janina ki korle amr betha kombe. Eta emon ekta betha jetar kono osudh nai osudh jar kase ase shey amake osudh dite raji na. Afsos je kono doctor amr betha komaite parbe na konodin. Afsos je apni konodin amr love trust korlen na vablen je amr mind change hoye jabe ei jinish gula vabao amr jonon khib painful babe. Kono kisu banan vul likhle sorry karon mi chokhe jhapsha dekhtesi kanna koray. Ami konodin apnar hoileo amr afsos sharajibon theke jabe je dreams gula veng gese shegular jonno. Amr khub kosto hocche je duniyar kisu diye ami amr pain komaite partesi na kisutei na😭😭. Ekjon apnar love paise na chailteo kisu na koreo. Shey apnar lav er sujog nise dhoka dise. Ar ami dekhen tar dhokar dewar karone pain suffer kortesi😭. God promise ami ar konodin kaoke valobashbo na. Apni je chka khaisen tar cheyeo koekgun beshi cheka mone hoy ami khacchi protidin. Amr love life ar konodin savabik hobe na. AMi morei gesi babe. Ami agune joltesi kn jani babe. Amr prottek ta chokher pani mone hocche jeno aguner fulka. Sotti ami emoni feel kortesi babe. ami kisutei normal  hoite partesi na. Ami mon hoy beshi kisu chainai apnar kase. I wish jodi apni konodin amak ebisshash korten. Jodi konodin amr chokher panir mullo bujhten. Ami janina apnar ei letter ta pore apni ektuo bujhtesen kina amr pain. Amr protidin mone hocche je ami amr life ta shesh kore fei babe karon din raat kanna kore bachte partesi na ami. Ami in fact eita koraro try korte gesilam jodio apnake boli nai but shudhu matro ami muslim jonno ami beche asi. Majhe majhe mone hoy keo eto নিষ্ঠুর hoy kivabe jekhane dekhtese je ami proti ta muhurto suffer kortesi. Tokhon abr mone hoy je thiki ase apni nijeke save kortesen ami morleo ki. Jai hok happy asen happy thaken babe. Apni always amr ekta part hishabe thakben. Ajk apnar birthday enjoy your day. Amio apnar khushi dekhte happy dekhte chai. Asha kori apnar jibone shob iccha puron hobe.Ami apnake shob rokom choice disilam. Shob vabe promise korar try korsilam. Even Quran Sharif er kothao bolsi. But honestly apnar ans shune monei hoise je apni ashole amake chan eee na. Apnar hoyto choice change korar iccha ase. Ami amr shaddho moto shob kisu korsi still amar love, amr feelings, amr emotions shob kisu apni nijer haat ey chure fele disen. Ami janina apni eishob kore nijeke khub boro khub strong ekjon hishabe vabtesen kina but jodi vebe thaken then let me tell  u r not someone that u r thinking. <p>Ajk 18 tarikh.</p> Ekdin ekdin jacche ar amr feelings kmn jani hoye jacche ami nijei kemon jeno hoye jacchi. Kalke raat ey jokhon Quran Sharif er bepar tao excuse marsen tokhon amr last je dream silo shetao venge gese. Kalke mone hoise je ami apnake ashole paboi na karon apni amake hoyto chan eee na. But ete amr loss hobe na clearly apni jodi vaben je amr cheye better paben then u r wrong wrong wrong. Ame cheye sundor paben but better na. Ar jodi pan taile sheta amr sathe injustice hobe and amr bisshash Allah konodin kaoke shob dik theke pain dey na thokay na. Kalke porjonto ami pagoler moto kanna korsi. Kalkeo ami at least 1 hour boshe boshe kadsi ar type korsi. But ajk ami btter feel kortesi karon logically chinta korte gele ki jay ashe amr apnar love na paile? Plus amake truel love korar jonno ekjon ase shey always amr opekkhay thakbe eta vebe onek vallagtese karon ami ekdon jemon ekjon ke chaisilam amake love korar jonno ekdommm shei rokom ekjon eee ase hoyto ami oke ekn patta dicchi na but still oy always ase amr jonno. Amake perfect love korar jonno manush ase hoyto sheta shudhu apnar jaygay onno keo hobe etai difference. But amr moto crazy love apnake ar kono mye korbe na 100% jodi na shei meye amr moto bolod gadha hoy. Sheta obossho apni kisudin porei bujhben. Hoyto apnake fuck korar jonno onek meye paben but amr moto erokom pagoler moto care, pagoler moto love keo dibe na karon baki meyeder mathay amr moto somossa na. Amr life ta shobar theke khub different. Ami konodin khub care peye boro hoi nai. Choto thekei shob somoy mone hoise ami always eka. Amr kopal kharap je amr parents er kas thekeo ami khub care peye boro hoi nai. Tai choto thekei nijer vitore kemon faka faka ekta feel hoito jeta ei 17-18 bosore ar kaoke diye fill up korar iccha hoy nai but apnake diye korar iccha hoisilo. Ei jonno amr life er shob kisu apnake niye silo ei 1 year. Apnar sathe kisudin somoy katanor por feel hoisilo je etai amr final soulmate and eto gula somoy dhore ami etai bisshash kore aschilam. But amr ei bisshash venge gese kisudin hoilo tai ei pain theke ami ber hoite partesi na kokkhono hoyto ber hobo o na. Ami apnake amr joto ta close feel korsi sheta ar konodin kaoke kori nai and korbo o na janina keno. Amake arekjon hoyto onk love dibe care dibe kintu ami konodin oke same love ta dite parbo na eta amr berthota and shetar jonno apni dayi. Apnar mone hobe ekn je ami to tomar sathei asi taile tmi keno bolteso je tmi cheka khaiso? Ami cheka khaisi karon apni amar dream kisudiner jonno puron korsilen kintu sheta puron kore abr amr kas theke kere nisen jeta amr kas theke feel hoise je amr duniya kere nisen amr kas theke. And ei pain ami konodino vulvo na and hae etar jonno ami konodino apnake maf korbo na na na. Always nijeke valo rakhben. But pls ami jemon pain feel kortesi shei pain ar konodin onno kaoke feel korte diyen na ami chaina amr moto eto baje vebe keo beche thakuk. <p>Ajk 19 tarikh,</p> And again I will write about my todays feelings. Ami every day nijer feelings lukay rakhte force kortesi. Mone ase? Ami kalke apnake bolsilam je ashole ami realize korsi life onk sundor and ami valo feel kortesi? I m sorry but ami mittha bolsilam karon oi time ey ashole ami kanna kortesilam and mone hocchilo life eto joghonno kn. But ami apnake sheta boli nai karon apni abar vabben ami amr kannar kotha shunaite aschi apnake. Apni jedin call ey amake bolsilen je tmi ki tmr kanna shunanor jonno call diso? Just imagine amr koto insult and pain feel hoisilo eta shune. Tokhon eke to ami depressed silam tar moddhe ami try kortesilam apnake bujhte na dewar je ami kanna kortesi but still amr apnar theke shunte hoise je ami amr kanna shunaite apnake call disi. Jinish ta shunte koto odd and embarassing?Jai hok. Ajk sharadine apni amake kono text den nai and boltesen je apni phone use koren nai. Jodio amr onk kharap lagse sharakhon apnar text er wait korsi but last ey ei excuse shunte hoise. But pore vablam kon baler karone ami pain nicchi karon ashole apnar sujog thakar poreo apni phone use koren nai amake text den nai er mane to ektai je apnar amr text er uttor dewari iccha silo na. Obossho eta savabik amake apnar khub ekta valo lage na eta ami jani just accept korte kosto hoy ar ki. Janen amr kase onek sundor sundor biyer reels ashe onek iccha hoy apnake share dite but apni amr reels dekheno na and ami apnake sheshob reels share diye ki korbo karon amr shob dreams vengei gese. But shei reels ami amr best frnd ke share dei and boli je amaro erokom dreams silo love life and marriage niye but shob nosto hoye gese ekn. Amr frnd bolse je abar dreams dekh karon onno keo tor dreams aro sundor kore puron korbe. Then ami bollam je onno kaoke diye ami ki korbo onno keo er jaygay jodi sheta ami jake love kori shey hoito taile dreams dekhtam. So it means je ami life ey jodi dhoren onno kaoke bf banaio onno kaoke biyeo kori still amr dreams gula puron hobe na karon ami onno kaoke chaina ami dreams gula apnake diye puron korte chai. I wish apni jodi dreams gular mullo bujhten and kono ekdin jodi shegula puron hoito. Ami ekdin apnar kase dami kono gift chainai only haat ey likha letter chaisilam but sheta apni ignore korsen and oidin raat ey sotti onk hurt hoisilam ami. But por vablam thiki as apni amake ki letter likhben and kn likhben apni to just amake ektu like koren er beshi kisui na. So oidin gift chawar jonno sorry. Janen last 2-3 weeks theke ami masturbation kori na. Karon jotobar ami masturbation korte jai kisu feel korar bodle ami automatically kanna kore dei. Karon masturbation korte gele ami apnar kotha imagine kori that u r fucking me. But reality te apni amr na even apni konodin amake fuck kora imagine o koren nai karon apnar hoyto amake eto valo lage na. To ei jinish ta odd na je jar kotha vebe ami masturbate korbo shey to amr na so amr kono right nai tar kotha oi time ey vabar. Ei pains gula mone hoy amake vitore vitore shesh kore feltese. Ami duniyar kono kisu diye nijeke thik rakhte partesi na. Apni just vaben je ami hoyto valo asi but ami ashole amr pain er bepar apnake bola chere disi karon bolle nijeke choto mone hoy pain er kotha bolle abar hoyto apni bolben ba vabben je pain and kannar kotha shunanor jonno apnake text dicchi. Afsos jodi ekbarer jonno hoileo shob thik korten and amr shob kosto jodi dur kore diten. Afsos je apni amr kolponay jemon sherokom jodi reality teo hoiten. Ami protidin eishob vebe eishob afsos niye bachbo eishob pain niye bachbo. Tai amr life er protidin ekn amr kase jahannam er cheye kom lage na. Somossa na karon amr jibon jahannam jenei apni happy asen. So apni happy thaklei hoise.Be happy with your life babe&#10084;&#65039;</p>
+<span class="from-picchi">— your Picchi 💖</span>
+</p>
+  </div>
+</section>
+
+<!-- Include EmailJS v4 -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  // Initialize EmailJS
+  emailjs.init("-vs1_1AEBHD5HY24D"); // your public key
+
+  // Scene navigation
+  const scenes = [scene1, scene2, scene3, scene4, scene5];
+  function nextScene(n) {
+    scenes.forEach(s => s.classList.add("hidden"));
+    scenes[n - 1].classList.remove("hidden");
+  }
+
+  // Gift and envelope
+  function openGift() {
+    giftText.classList.remove("hidden");
+    wishBtn.classList.remove("hidden");
+    confetti();
+  }
+  function openFinalLetter() {
+    nextScene(5);
+    confetti();
+  }
+
+  // Cake cutting
+  const canvas = document.getElementById("cutCanvas");
+  const ctx = canvas.getContext("2d");
+  let cutting = false;
+
+  function pos(e) {
+    const r = canvas.getBoundingClientRect();
+    return {
+      x: (e.touches ? e.touches[0].clientX : e.clientX) - r.left,
+      y: (e.touches ? e.touches[0].clientY : e.clientY) - r.top
+    };
+  }
+
+  canvas.onmousedown = canvas.ontouchstart = e => {
+    cutting = true;
+    const p = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  };
+
+  canvas.onmousemove = canvas.ontouchmove = e => {
+    if (!cutting) return;
+    const p = pos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = "#ff5fa2";
+    ctx.lineWidth = 4;
+    ctx.stroke();
+  };
+
+  canvas.onmouseup = canvas.ontouchend = () => {
+    if (!cutting) return;
+    cutting = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    cake.classList.add("split");
+    finalEnvelope.classList.remove("hidden");
+    confetti();
+  };
+
+  // Secretly capture the wish via EmailJS v4
+  const wishTextarea = document.querySelector("#scene3 textarea");
+  const doneBtn = document.querySelector("#scene3 .btn");
+
+  doneBtn.addEventListener("click", () => {
+    const wish = wishTextarea.value.trim();
+    if (!wish) return alert("You didn't write anything 😅");
+
+    emailjs.send("service_tqswkfs", "template_hoxsd7e", { user_wish: wish })
+      .then(res => {
+        console.log("Wish sent!", res);
+        nextScene(4); // move to cake scene after sending
+      })
+      .catch(err => {
+        console.error("Error sending wish:", err);
+        alert("Failed to send your wish. Check console.");
+      });
+  });
+
+  // Expose functions globally for inline onclick
+  window.nextScene = nextScene;
+  window.openGift = openGift;
+  window.openFinalLetter = openFinalLetter;
+});
+</script>
+
+
+
+</body>
+</html>
